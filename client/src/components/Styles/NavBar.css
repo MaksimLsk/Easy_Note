@@ -1,0 +1,19 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.icon {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.icon > h1 {
+  margin: 0;
+}
+
+.profileLogo {
+  width: 4.5rem;
+  height: 4.5rem;
+}
