@@ -5,11 +5,24 @@ export default function NavBar() {
   return (
     <div className="nav">
       <div className="icon">
-        <h1>Easy</h1>
-        <h1>Note</h1>
+        <a
+          href="/"
+          className="icon"
+          alt="access to homepage"
+          title="access to homepage"
+        >
+          <h1>Easy</h1>
+          <h1>Note</h1>
+        </a>
       </div>
       <div className="profileLogo">
-        <CgProfile className="profileLogo" />
+        <a
+          href="/profile"
+          alt="acces to profile page"
+          title="acces to profile page"
+        >
+          <CgProfile className="profileLogo" />
+        </a>
       </div>
     </div>
   );

@@ -1,0 +1,117 @@
+/*----------GOOGLE FONTS----------------*/
+
+@font-face {
+  font-family: Poppins;
+  src: url("../../assets/Fonts/Poppins/Poppins-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Cormorant;
+  src: url("../../assets/Fonts/Cormorant/static/Cormorant-BoldItalic.ttf")
+    format("truetype");
+}
+
+/*----------CSS VARIABLES--------------*/
+
+:root {
+  --main-color: #e0e9eb;
+  --accent-color: #047099;
+  --cancel-color: #8f567b;
+
+  /*---------TYPOGRAPHY---------*/
+
+  --main-font: "Poppins", sans-serif;
+
+  --accent-font: "Cormorant", sans-serif;
+}
+
+/*-----------CODE----------------*/
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--main-color);
+}
+
+h2,
+h3,
+p {
+  font-family: var(--main-font);
+}
+
+/*-----------buttons----------------*/
+.btn {
+  background: var(--accent-color);
+  color: white;
+  font-family: var(--main-font);
+  padding: 0.01rem 0.4rem;
+  border-radius: 0.3rem;
+  border: none;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 1px 3px var(--accent-color);
+}
+
+.btn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 1px 1px var(--accent-color);
+}
+
+.deleteBtn {
+  background: var(--cancel-color);
+  color: white;
+  font-family: var(--main-font);
+  padding: 0.01rem 0.4rem;
+  border-radius: 0.3rem;
+  border: none;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.deleteBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 1px 3px var(--cancel-color);
+}
+
+.deleteBtn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 1px 1px var(--cancel-color);
+}
+
+/* footer {
+  position: absolute;
+  top: 85%;
+  left: 75%;
+} */
+
+/* @media screen and (max-width: 760px) {
+  .logo {
+    display: none;
+  }
+
+  .container {
+    justify-content: center;
+  }
+
+  footer {
+    position: absolute;
+    top: 85%;
+    left: 20%;
+  }
+} */
+
+/* @media screen and (min-width: 761px) and (max-width: 960px) {
+  footer {
+    position: absolute;
+    top: 85%;
+    left: 60%;
+  }
+} */

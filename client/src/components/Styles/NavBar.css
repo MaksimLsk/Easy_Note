@@ -1,12 +1,18 @@
 .nav {
   display: flex;
   justify-content: space-between;
+  padding: 0.5rem;
+  background: var(--accent-color);
 }
 
 .icon {
   display: flex;
   flex-direction: column;
   margin: 0;
+  font-family: var(--accent-font);
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
 }
 
 .icon > h1 {
@@ -14,6 +20,12 @@
 }
 
 .profileLogo {
-  width: 4.5rem;
+  width: 3.5rem;
   height: 4.5rem;
+  color: black;
+}
+
+.icon:hover,
+.profileLogo:hover {
+  transform: scale(1.04);
 }
