@@ -4,11 +4,11 @@ const tables = require("../../database/tables");
 // The B of BREAD - Browse (Read All) operation
 const browse = async (req, res, next) => {
   try {
-    // Fetch all items from the database
-    const items = await tables.item.readAll();
+    // Fetch all note from the database
+    const note = await tables.note.readAll();
 
-    // Respond with the items in JSON format
-    res.json(items);
+    // Respond with the note in JSON format
+    res.json(note);
   } catch (err) {
     // Pass any errors to the error-handling middleware
     next(err);
@@ -18,15 +18,15 @@ const browse = async (req, res, next) => {
 // The R of BREAD - Read operation
 const read = async (req, res, next) => {
   try {
-    // Fetch a specific item from the database based on the provided ID
-    const item = await tables.item.read(req.params.id);
+    // Fetch a specific note from the database based on the provided ID
+    const note = await tables.note.read(req.params.id);
 
-    // If the item is not found, respond with HTTP 404 (Not Found)
-    // Otherwise, respond with the item in JSON format
-    if (item == null) {
+    // If the note is not found, respond with HTTP 404 (Not Found)
+    // Otherwise, respond with the note in JSON format
+    if (note == null) {
       res.sendStatus(404);
     } else {
-      res.json(item);
+      res.status(200).json(note);
     }
   } catch (err) {
     // Pass any errors to the error-handling middleware
@@ -39,16 +39,20 @@ const read = async (req, res, next) => {
 
 // The A of BREAD - Add (Create) operation
 const add = async (req, res, next) => {
-  // Extract the item data from the request body
-  const item = req.body;
+  // Extract the note data from the request body
+  const dataNote = req.body;
 
   try {
-    // Insert the item into the database
-    const insertId = await tables.item.create(item);
+    // Insert the note into the database
+    const insertId = await tables.note.create(dataNote);
 
-    // Respond with HTTP 201 (Created) and the ID of the newly inserted item
+    // Respond with HTTP 201 (Created) and the ID of the newly inserted note
     res.status(201).json({ insertId });
   } catch (err) {
+    console.error("Error creating a note:", err);
+    res
+      .status(500)
+      .json({ error: "An error occurred while creating a note" });
     // Pass any errors to the error-handling middleware
     next(err);
   }
