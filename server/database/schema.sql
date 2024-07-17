@@ -15,7 +15,7 @@ create table list (
 
 create table note (
   id int unsigned primary key auto_increment not null,
-  context varchar(255) not null,
+  context varchar(255),
   list_id int unsigned not null,
   foreign key(list_id) references list(id)
 );

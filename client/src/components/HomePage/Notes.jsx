@@ -31,15 +31,14 @@ export default function Notes({ list, onAddNote, onDeleteNote }) {
         </button>
       </form>
       <ul className="table">
-        {list.notes.map((note, index) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <li key={`${note}-${index}`} className="newNote">
-            {note}
+        {list.notes.map((note) => (
+          <li key={note.id} className="newNote">
+            {note.context}
             <button
               type="button"
               className="deleteBtn"
               title="delete note"
-              onClick={() => onDeleteNote(list.id, index)}
+              onClick={() => onDeleteNote(list.id, note.id)}
             >
               -
             </button>
@@ -54,7 +53,12 @@ Notes.propTypes = {
   list: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    notes: PropTypes.arrayOf(PropTypes.string).isRequired,
+    notes: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        context: PropTypes.string.isRequired,
+      })
+    ).isRequired,
   }).isRequired,
   onAddNote: PropTypes.func.isRequired,
   onDeleteNote: PropTypes.func.isRequired,

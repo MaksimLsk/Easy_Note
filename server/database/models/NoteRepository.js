@@ -13,7 +13,7 @@ class NoteRepository extends AbstractRepository {
     // Execute the SQL INSERT query to add a new note to the "note" table
     const [result] = await this.database.query(
       `insert into ${this.table} (context, list_id) values (?, ?)`,
-      [note.title, note.user_id]
+      [note.context, note.list_id]
     );
 
     // Return the ID of the newly inserted note

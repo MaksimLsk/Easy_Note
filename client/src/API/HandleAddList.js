@@ -11,6 +11,7 @@ const addList = async ({ list }) => {
   try {
     const response = await axios.post(`${Api}/api/list`, {
       name: list.name,
+      user_id: list.user_id,
     });
 
     if (response.status !== 201) {
