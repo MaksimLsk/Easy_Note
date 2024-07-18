@@ -20,7 +20,7 @@ export default function SignUpPage() {
       try {
         const response = await HandleSignUp({ user: formValues }); // Pass formValues inside an object with a 'user' property
         if (response.success) {
-          notify("Account created", "please sign in");
+          notify("Account created, please sign in !", "succes");
           navigate("/signin", { state: { user: formValues } });
         } else {
           console.error("Registration failed: ", response.error);

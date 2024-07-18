@@ -1,11 +1,13 @@
 import { useNavigate, Form } from "react-router-dom";
 import { useState } from "react";
+import { useUserContext } from "../Context/UserContext";
 import handleSignIn from "../API/HandleSignIn";
 import notify from "../Notify/notify";
 import "../components/Styles/ProfilePage.css";
 
 export default function SignInPage() {
   const navigate = useNavigate();
+  const { login } = useUserContext();
 
   const [signInValues, setSignInValues] = useState({
     email: "",
@@ -87,6 +89,7 @@ export default function SignInPage() {
         const result = await handleSignIn({ signInData });
 
         if (result.success) {
+          login({ id: result.id });
           navigate(`/profile`);
           notify("Welcome !", "success");
         } else {
