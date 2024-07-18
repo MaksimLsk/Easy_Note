@@ -11,6 +11,7 @@ import ProfilePage from "./pages/ProfilePage";
 import SignUpPage from "./pages/SignUpPage";
 import SignInPage from "./pages/SignInPage";
 import ProfileAccess from "./pages/ProfileAccess";
+import { loadUserData } from "./API/HandleProfile";
 
 const router = createBrowserRouter([
   {
@@ -24,9 +25,10 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: <ProfilePage />,
+        loader: loadUserData,
       },
       {
-        path: "/Profileaccess",
+        path: "/profileaccess",
         element: <ProfileAccess />,
       },
       {

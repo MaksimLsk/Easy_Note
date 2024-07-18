@@ -89,7 +89,7 @@ export default function SignInPage() {
         const result = await handleSignIn({ signInData });
 
         if (result.success) {
-          login({ id: result.id });
+          login(result.user);
           navigate(`/profile`);
           notify("Welcome !", "success");
         } else {
@@ -108,13 +108,9 @@ export default function SignInPage() {
   };
 
   return (
-    <Form
-      className="bodyform signinComponent"
-      method="post"
-      onSubmit={handleSubmit}
-    >
+    <Form className="component" method="post" onSubmit={handleSubmit}>
       <div className="bodyform">
-        <p>Acces to your profile</p>
+        <h2>Acces to your profile</h2>
         <label>
           <input
             className="emailInput container"

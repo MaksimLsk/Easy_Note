@@ -43,6 +43,10 @@ p {
   font-family: var(--main-font);
 }
 
+span {
+  color: var(--accent-color);
+}
+
 /*-----------buttons----------------*/
 .btn {
   background: var(--accent-color);

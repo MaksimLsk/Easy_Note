@@ -18,7 +18,7 @@ const handleSignIn = async ({ signInData }) => {
 
     const { data } = response;
 
-    return { success: true, user: data.user.email, id: data.user.id };
+    return { success: true, user: data };
   } catch (error) {
     console.error("Error in handleSignIn:", error);
     return { error: error.message };

@@ -1,7 +1,10 @@
 import { CgProfile } from "react-icons/cg";
+import { useUserContext } from "../../Context/UserContext";
 import "../Styles/NavBar.css";
 
 export default function NavBar() {
+  const { user } = useUserContext();
+
   return (
     <div className="nav">
       <div className="icon">
@@ -16,13 +19,23 @@ export default function NavBar() {
         </a>
       </div>
       <div className="profileLogo">
-        <a
-          href="/profile"
-          alt="acces to profile page"
-          title="acces to profile page"
-        >
-          <CgProfile className="profileLogo" />
-        </a>
+        {user !== "null" && user !== null ? (
+          <a
+            href="/profile"
+            alt="access to profile page"
+            title="access to profile page"
+          >
+            <CgProfile className="profileLogo" />
+          </a>
+        ) : (
+          <a
+            href="/profileaccess"
+            alt="access to connection page"
+            title="access to connection page"
+          >
+            <CgProfile className="profileLogo" />
+          </a>
+        )}
       </div>
     </div>
   );
