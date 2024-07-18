@@ -4,7 +4,7 @@ import Notes from "../components/HomePage/Notes";
 import { useUserContext } from "../Context/UserContext";
 import { loadListData, addList } from "../API/HandleAddList";
 import { loadNoteData, addNote } from "../API/HandleAddNote";
-import notify from "../Notify/notify";
+// import notify from "../Notify/notify";
 
 import "../components/Styles/HomePage.css";
 
@@ -15,7 +15,7 @@ export default function HomePage() {
 
   useEffect(() => {
     if (user === null) {
-      notify("Please connect", "error");
+      console.error("user is not connected")
     } else {
       const fetchData = async () => {
         const listData = await loadListData(user.user.id);
@@ -83,9 +83,9 @@ export default function HomePage() {
       lists.map((list) =>
         list.id === listId
           ? {
-              ...list,
-              notes: list.notes.filter((note) => note.id !== noteId),
-            }
+            ...list,
+            notes: list.notes.filter((note) => note.id !== noteId),
+          }
           : list
       )
     );
