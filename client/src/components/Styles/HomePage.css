@@ -11,6 +11,10 @@
   max-width: 20rem;
 }
 
+.signinComponent {
+  min-height: 80vh;
+}
+
 .headerNote {
   display: flex;
 }

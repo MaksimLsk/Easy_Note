@@ -43,6 +43,7 @@ const add = async (req, res, next) => {
   // Extract the user data from the request body
   const dataUser = req.body;
 
+
   try {
     // Insert the user into the database
     const insertId = await tables.user.create(dataUser);

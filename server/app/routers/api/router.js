@@ -12,12 +12,15 @@ const listRouter = require("./list/router");
 
 const noteRouter = require("./note/router");
 
+const authRouter = require("./auth/router");
 
 router.use("/user", userRouter);
 
 router.use("/list", listRouter);
 
 router.use("/note", noteRouter);
+
+router.use("/auth", authRouter);
 
 /* ************************************************************************* */
 

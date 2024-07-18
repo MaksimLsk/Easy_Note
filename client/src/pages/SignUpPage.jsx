@@ -1,6 +1,7 @@
 import { useNavigate, Form } from "react-router-dom";
 import SignUpForm from "../components/SignUp/SignUpForm";
 import { HandleSignUp } from "../API/HandleSignUp";
+import notify from "../Notify/notify";
 
 export default function SignUpPage() {
   const navigate = useNavigate();
@@ -19,7 +20,8 @@ export default function SignUpPage() {
       try {
         const response = await HandleSignUp({ user: formValues }); // Pass formValues inside an object with a 'user' property
         if (response.success) {
-          navigate("/", { state: { user: formValues } });
+          notify("Account created", "please sign in");
+          navigate("/signin", { state: { user: formValues } });
         } else {
           console.error("Registration failed: ", response.error);
         }
