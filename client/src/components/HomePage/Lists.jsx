@@ -1,15 +1,19 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import notify from "../../Notify/notify";
 
 import "../Styles/HomePage.css";
 
-function List({ lists, onListClick, onAddList, onDeleteList }) {
+function List({ lists, onListClick, onAddList, onDeleteList, user }) {
   const [newListName, setNewListName] = useState("");
   const [selectedListId, setSelectedListId] = useState(null); // New state for selected list
 
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (user === null) {
+      notify("Please connect", "error");
+    }
     if (newListName.trim()) {
       onAddList(newListName); // Call function to add new list
       setNewListName(""); // Reset input field
@@ -52,14 +56,14 @@ function List({ lists, onListClick, onAddList, onDeleteList }) {
           key={list.id}
           className={`newList ${selectedListId === list.id ? "selected" : ""}`}
         >
-          <span
+          <div
             role="button"
             tabIndex="0"
             onClick={() => handleListClick(list.id)} // Handle click on list item
             onKeyDown={(e) => handleKeyDown(e, list.id)} // Allow selecting the list item using the keyboard
           >
             {list.name}
-          </span>
+          </div>
           <button
             className="deleteBtn"
             type="button"
@@ -75,6 +79,7 @@ function List({ lists, onListClick, onAddList, onDeleteList }) {
 }
 
 List.propTypes = {
+  user: PropTypes.func.isRequired,
   lists: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,

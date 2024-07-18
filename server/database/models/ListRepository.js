@@ -33,9 +33,15 @@ class ListRepository extends AbstractRepository {
     return rows[0];
   }
 
-  async readAll() {
+  async readAll(userId) {
     // Execute the SQL SELECT query to retrieve all lists from the "list" table
-    const [rows] = await this.database.query(`select * from ${this.table}`);
+    const [rows] = await this.database.query(`select * from ${this.table} where user_id = ?`,
+      [userId]
+    );
+
+    // async readAll() {
+    //   // Execute the SQL SELECT query to retrieve all lists from the "list" table
+    //   const [rows] = await this.database.query(`select * from ${this.table}`);
 
     // Return the array of lists
     return rows;
@@ -51,9 +57,14 @@ class ListRepository extends AbstractRepository {
   // The D of CRUD - Delete operation
   // TODO: Implement the delete operation to remove an list by its ID
 
-  // async delete(id) {
-  //   ...
-  // }
+  async delete(id) {
+    await this.database.query(`DELETE FROM list WHERE user_id = ?`, [id]);
+    const [result] = await this.database.query(
+      `DELETE FROM ${this.table} WHERE id = ?`,
+      [id]
+    );
+    return result.affectedRows;
+  }
 }
 
 module.exports = ListRepository;

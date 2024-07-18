@@ -43,12 +43,16 @@ p {
   font-family: var(--main-font);
 }
 
+span {
+  color: var(--accent-color);
+}
+
 /*-----------buttons----------------*/
 .btn {
   background: var(--accent-color);
   color: white;
   font-family: var(--main-font);
-  padding: 0.01rem 0.4rem;
+  width: 1.5rem;
   border-radius: 0.3rem;
   border: none;
   transition: all 0.2s;
@@ -69,7 +73,7 @@ p {
   background: var(--cancel-color);
   color: white;
   font-family: var(--main-font);
-  padding: 0.01rem 0.4rem;
+  width: 1.5rem;
   border-radius: 0.3rem;
   border: none;
   transition: all 0.2s;
@@ -84,6 +88,34 @@ p {
 .deleteBtn:active {
   transform: translateY(-1px);
   box-shadow: 0 1px 1px var(--cancel-color);
+}
+
+.accountBtn {
+  background: var(--accent-color);
+  color: var(--main-color);
+  font-family: var(--main-font);
+  width: 100%;
+  height: 2rem;
+  border-radius: 0.3rem;
+  border: none;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.accountBtn > a {
+  color: white;
+  font-family: var(--main-font);
+  text-decoration: none;
+}
+
+.accountBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 1px 3px var(--accent-color);
+}
+
+.accountBtn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 1px 1px var(--accent-color);
 }
 
 /* footer {

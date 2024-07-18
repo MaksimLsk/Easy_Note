@@ -1,12 +1,37 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Lists from "../components/HomePage/Lists";
 import Notes from "../components/HomePage/Notes";
+import { useUserContext } from "../Context/UserContext";
+import { loadListData, addList } from "../API/HandleAddList";
+import { loadNoteData, addNote } from "../API/HandleAddNote";
+import notify from "../Notify/notify";
 
 import "../components/Styles/HomePage.css";
 
 export default function HomePage() {
   const [lists, setLists] = useState([]);
   const [activeList, setActiveList] = useState(null);
+  const { user } = useUserContext();
+
+  useEffect(() => {
+    if (user === null) {
+      notify("Please connect", "error");
+    } else {
+      const fetchData = async () => {
+        const listData = await loadListData(user.user.id);
+        const noteData = await loadNoteData();
+
+        // Ensure each list has a notes property that is an array of objects
+        const listsWithNotes = listData.map((list) => ({
+          ...list,
+          notes: noteData.filter((note) => note.list_id === list.id),
+        }));
+
+        setLists(listsWithNotes);
+      };
+      fetchData();
+    }
+  }, [user]);
 
   // Function to handle clicking on a list item
   const handleListClick = (id) => {
@@ -14,22 +39,34 @@ export default function HomePage() {
   };
 
   // Function to add a new list
-  const handleAddlist = (name) => {
+  const handleAddList = async (name) => {
     const newList = {
-      id: lists.length + 1, // Generate a unique ID for the new list
       name,
-      notes: [], // Initialize with an empty array of notes
+      user_id: user.user.id, // Generate a unique ID for the new list
     };
-    setLists([...lists, newList]); // Add the new list to the existing lists
+    const result = await addList({ list: newList });
+    if (!result.error) {
+      setLists([...lists, { id: result.insertId, ...newList, notes: [] }]);
+    }
   };
 
-  // Function to add a new item to a specific list
-  const handleAddNote = (listId, note) => {
-    setLists(
-      lists.map((list) =>
-        list.id === listId ? { ...list, notes: [...list.notes, note] } : list
-      )
-    ); // Update the lists with the new note added to the specified list
+  // Function to add a new note to a specific list
+  const handleAddNote = async (listId, context) => {
+    const newNote = {
+      context,
+      list_id: listId,
+    };
+    const result = await addNote({ note: newNote });
+
+    if (!result.error) {
+      setLists(
+        lists.map((list) =>
+          list.id === listId
+            ? { ...list, notes: [...list.notes, { id: result.id, context }] }
+            : list
+        )
+      );
+    }
   };
 
   // Function to delete a list by its ID
@@ -40,14 +77,14 @@ export default function HomePage() {
     }
   };
 
-  // Function to delete a note from a specific list by its index
-  const handleDeleteNote = (listId, noteIndex) => {
+  // Function to delete a note from a specific list by its note ID
+  const handleDeleteNote = (listId, noteId) => {
     setLists(
       lists.map((list) =>
         list.id === listId
           ? {
               ...list,
-              notes: list.notes.filter((_, index) => index !== noteIndex),
+              notes: list.notes.filter((note) => note.id !== noteId),
             }
           : list
       )
@@ -59,9 +96,10 @@ export default function HomePage() {
   return (
     <div className="todo">
       <Lists
+        user={user}
         lists={lists}
         onListClick={handleListClick}
-        onAddList={handleAddlist}
+        onAddList={handleAddList}
         onDeleteList={handleDeleteList}
       />
       <div className="noteContainer">

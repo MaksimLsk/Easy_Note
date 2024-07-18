@@ -17,12 +17,13 @@
 
 .icon > h1 {
   margin: 0;
+  color: var(--main-color);
 }
 
 .profileLogo {
   width: 3.5rem;
   height: 4.5rem;
-  color: black;
+  color: var(--main-color);
 }
 
 .icon:hover,

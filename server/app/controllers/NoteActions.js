@@ -58,8 +58,21 @@ const add = async (req, res, next) => {
   }
 };
 
-// The D of BREAD - Destroy (Delete) operation
-// This operation is not yet implemented
+const drop = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const affectedRows = await tables.list.drop(id);
+    if (affectedRows === 0) {
+      res.status(404).json({ error: "Note not found" });
+    } else {
+      res.sendStatus(204);
+    }
+  } catch (err) {
+    console.error("Error in delete action:", err);
+    res.status(500).json({ error: "Internal server error" });
+    next(err);
+  }
+};
 
 // Ready to export the controller functions
 module.exports = {
@@ -67,5 +80,5 @@ module.exports = {
   read,
   // edit,
   add,
-  // destroy,
+  drop,
 };

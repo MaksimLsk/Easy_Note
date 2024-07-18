@@ -6,19 +6,14 @@ const router = express.Router();
 // Define Your API Routes Here
 /* ************************************************************************* */
 
-// Import user-related actions
-const { browse, read, add } = require("../../../controllers/UserActions");
+// Import list-related actions
+const { signin, signout } = require("../../../controllers/AuthActions");
 
-const { hashPassword } = require("../../../services/auth")
 
-// Route to get a list of users
-router.get("/", browse);
+// Route to add a new list
+router.post("/signin", signin);
 
-// Route to get a specific user by ID
-router.get("/profile", read);
-
-// Route to add a new user
-router.post("/", hashPassword, add);
+router.post("/signout", signout);
 
 /* ************************************************************************* */
 

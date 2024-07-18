@@ -13,7 +13,7 @@ class NoteRepository extends AbstractRepository {
     // Execute the SQL INSERT query to add a new note to the "note" table
     const [result] = await this.database.query(
       `insert into ${this.table} (context, list_id) values (?, ?)`,
-      [note.title, note.user_id]
+      [note.context, note.list_id]
     );
 
     // Return the ID of the newly inserted note
@@ -51,9 +51,14 @@ class NoteRepository extends AbstractRepository {
   // The D of CRUD - Delete operation
   // TODO: Implement the delete operation to remove an note by its ID
 
-  // async delete(id) {
-  //   ...
-  // }
+  async delete(id) {
+    await this.database.query(`DELETE FROM note WHERE list_id = ?`, [id]);
+    const [result] = await this.database.query(
+      `DELETE FROM ${this.table} WHERE id = ?`,
+      [id]
+    );
+    return result.affectedRows;
+  }
 }
 
 module.exports = NoteRepository;

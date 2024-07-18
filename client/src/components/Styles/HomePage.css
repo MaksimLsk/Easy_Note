@@ -1,6 +1,6 @@
 .todo {
   display: grid;
-  grid-template-columns: 1fr 5fr;
+  grid-template-columns: 1fr 4fr;
   margin-top: 2rem;
 }
 
@@ -9,6 +9,10 @@
   padding: 0.5rem;
   min-width: 10rem;
   max-width: 20rem;
+}
+
+.signinComponent {
+  min-height: 80vh;
 }
 
 .headerNote {
@@ -33,7 +37,8 @@
 
 .input {
   border: none;
-  width: 100%;
+  min-width: 70%;
+  max-width: 80%;
   height: 1.5rem;
   border-radius: 0.2rem;
   font-family: var(--main-font);
