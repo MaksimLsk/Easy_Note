@@ -1,30 +1,37 @@
 import { useState, useEffect } from "react";
 import Lists from "../components/HomePage/Lists";
 import Notes from "../components/HomePage/Notes";
+import { useUserContext } from "../Context/UserContext";
 import { loadListData, addList } from "../API/HandleAddList";
 import { loadNoteData, addNote } from "../API/HandleAddNote";
+import notify from "../Notify/notify";
 
 import "../components/Styles/HomePage.css";
 
 export default function HomePage() {
   const [lists, setLists] = useState([]);
   const [activeList, setActiveList] = useState(null);
+  const { user } = useUserContext();
 
   useEffect(() => {
-    const fetchData = async () => {
-      const listData = await loadListData();
-      const noteData = await loadNoteData();
+    if (user === null) {
+      notify("Please connect", "error");
+    } else {
+      const fetchData = async () => {
+        const listData = await loadListData(user.user.id);
+        const noteData = await loadNoteData();
 
-      // Ensure each list has a notes property that is an array of objects
-      const listsWithNotes = listData.map((list) => ({
-        ...list,
-        notes: noteData.filter((note) => note.list_id === list.id),
-      }));
+        // Ensure each list has a notes property that is an array of objects
+        const listsWithNotes = listData.map((list) => ({
+          ...list,
+          notes: noteData.filter((note) => note.list_id === list.id),
+        }));
 
-      setLists(listsWithNotes);
-    };
-    fetchData();
-  }, []);
+        setLists(listsWithNotes);
+      };
+      fetchData();
+    }
+  }, [user]);
 
   // Function to handle clicking on a list item
   const handleListClick = (id) => {
@@ -35,7 +42,7 @@ export default function HomePage() {
   const handleAddList = async (name) => {
     const newList = {
       name,
-      user_id: 2, // Generate a unique ID for the new list
+      user_id: user.user.id, // Generate a unique ID for the new list
     };
     const result = await addList({ list: newList });
     if (!result.error) {
@@ -89,6 +96,7 @@ export default function HomePage() {
   return (
     <div className="todo">
       <Lists
+        user={user}
         lists={lists}
         onListClick={handleListClick}
         onAddList={handleAddList}

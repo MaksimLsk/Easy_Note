@@ -110,7 +110,7 @@ export default function SignInPage() {
   return (
     <Form className="component" method="post" onSubmit={handleSubmit}>
       <div className="bodyform">
-        <h2>Acces to your profile</h2>
+        <h2>Access to your profile</h2>
         <label>
           <input
             className="emailInput container"

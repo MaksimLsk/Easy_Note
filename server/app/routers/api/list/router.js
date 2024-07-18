@@ -7,17 +7,22 @@ const router = express.Router();
 /* ************************************************************************* */
 
 // Import list-related actions
-const { browse, read, add } = require("../../../controllers/ListActions");
+const { browse, read, add, drop } = require("../../../controllers/ListActions");
+
+const { verifyCookie } = require("../../../services/auth");
 
 // Route to get a list of lists
-router.get("/", browse);
+router.get("/", verifyCookie, browse);
 
 // Route to get a specific list by ID
-router.get("/:id", read);
+router.get("/:id", verifyCookie, read);
 
 // Route to add a new list
 router.post("/", add);
 
+
+
+router.delete("/:id", verifyCookie, drop);
 /* ************************************************************************* */
 
 module.exports = router;

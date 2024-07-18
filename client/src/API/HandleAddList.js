@@ -3,7 +3,13 @@ import axios from "axios";
 const Api = import.meta.env.VITE_API_URL;
 
 const loadListData = async () => {
-  const response = await axios.get(`${Api}/api/list`);
+  const response = await axios.get(`${Api}/api/list`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    withCredentials: true,
+  });
+
   return response.data;
 };
 
