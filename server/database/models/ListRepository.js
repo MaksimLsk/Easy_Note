@@ -57,14 +57,32 @@ class ListRepository extends AbstractRepository {
   // The D of CRUD - Delete operation
   // TODO: Implement the delete operation to remove an list by its ID
 
-  async delete(id) {
-    await this.database.query(`DELETE FROM list WHERE user_id = ?`, [id]);
-    const [result] = await this.database.query(
-      `DELETE FROM ${this.table} WHERE id = ?`,
-      [id]
+  // async delete(userId, id) {
+  //   await this.database.query(`DELETE FROM list WHERE user_id = ?`, [userId, id]);
+  //   const [result] = await this.database.query(
+  //     `DELETE FROM ${this.table} WHERE id = ? AND user_id = ?`,
+  //     [id, userId]
+  //   );
+  //   return result.affectedRows;
+  // }
+
+  async delete(userId, id) {
+    // Delete notes associated with the list
+    await this.database.query(
+      `DELETE FROM note WHERE list_id = ? AND list_id IN (SELECT id FROM list WHERE user_id = ?)`,
+      [id, userId]
     );
+
+    // Delete the list
+    const [result] = await this.database.query(
+      `DELETE FROM ${this.table} WHERE id = ? AND user_id = ?`,
+      [id, userId]
+    );
+
     return result.affectedRows;
   }
+
+
 }
 
 module.exports = ListRepository;

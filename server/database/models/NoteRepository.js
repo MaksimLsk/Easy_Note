@@ -51,11 +51,11 @@ class NoteRepository extends AbstractRepository {
   // The D of CRUD - Delete operation
   // TODO: Implement the delete operation to remove an note by its ID
 
-  async delete(id) {
-    await this.database.query(`DELETE FROM note WHERE list_id = ?`, [id]);
+  async delete(listId, id) {
+    await this.database.query(`DELETE FROM note WHERE list_id = ?`, [listId]);
     const [result] = await this.database.query(
-      `DELETE FROM ${this.table} WHERE id = ?`,
-      [id]
+      `DELETE FROM ${this.table} WHERE id = ? AND list_id = ?`,
+      [id, listId]
     );
     return result.affectedRows;
   }

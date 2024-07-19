@@ -11,11 +11,11 @@ const deleteList = async (listId) => {
       withCredentials: true,
     });
 
-    if (response.status !== 201) {
-      throw new Error("Failed to delete car");
+    if (response.status !== 204) {
+      throw new Error("Failed to delete list");
     }
   } catch (err) {
-    console.error("Error deleting car:", err);
+    console.error("Error deleting list:", err);
   }
 };
 

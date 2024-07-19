@@ -81,9 +81,11 @@ const add = async (req, res, next) => {
 };
 
 const drop = async (req, res, next) => {
+  const { sub } = req.auth;
   const { id } = req.params;
+
   try {
-    const affectedRows = await tables.list.drop(id);
+    const affectedRows = await tables.list.delete(sub, id);
     if (affectedRows === 0) {
       res.status(404).json({ error: "List not found" });
     } else {
