@@ -20,8 +20,6 @@ router.get("/:id", verifyCookie, read);
 // Route to add a new list
 router.post("/", add);
 
-
-
 router.delete("/:id", verifyCookie, drop);
 /* ************************************************************************* */
 
